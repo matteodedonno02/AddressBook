@@ -7,11 +7,19 @@ module.exports = {
     addContact: (name, surname, phoneNumber) => {
         const db = module.exports.getContacts();
         const temp = {id: db[db.length - 1].id + 1, name: name, surname: surname, phoneNumber: phoneNumber};
-        if(db.filter(t => t.phoneNumber == temp.phoneNumber || (t.name == temp.name && t.surname) == temp.surname).length == 0)
-        {
+        if(db.filter(t => t.phoneNumber == temp.phoneNumber || (t.name == temp.name && t.surname) == temp.surname).length == 0){
             db.push(temp);
             module.exports.saveDatabase(db);
         }
+    },
+    removeContact: (id) => {
+        const db = module.exports.getContacts();
+        db.splice(id, 1);
+        db.forEach((contact) => {
+            if(contact.id > id)
+                contact.id --;
+        });
+        module.exports.saveDatabase(db);
     },
     saveDatabase: (db) => {
         fs.writeFileSync("./db.json", JSON.stringify(db));
