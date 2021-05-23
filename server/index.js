@@ -9,8 +9,8 @@ app.get("/contacts", (request, response) => {
 })
 
 app.post("/add", (request, response) => {
-    console.log(request.query.nome);
-    response.send();
+    db.addContact(request.query.name, request.query.surname, request.query.phoneNumber);
+    response.send(db.getContacts());
 });
 
 app.listen(3000, () => {
