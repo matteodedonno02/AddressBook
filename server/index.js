@@ -1,8 +1,12 @@
 const express = require("express");
 const fs = require("fs");
+const cors = require("cors");
 const db = require("./dbmanager.js");
 
 const app = express();
+
+
+app.use(cors());
 
 app.get("/contacts", (request, response) => {
     response.send(db.getContacts());
@@ -18,6 +22,6 @@ app.delete("/remove", (request, response) => {
     response.send(db.getContacts());
 });
 
-app.listen(3000, () => {
+app.listen(3030, () => {
     console.log("Server started!");
 });
