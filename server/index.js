@@ -13,7 +13,6 @@ app.post("/add", (request, response) => {
     response.send(db.getContacts());
 });
 
-
 app.delete("/remove", (request, response) => {
     db.removeContact(request.query.id);
     response.send(db.getContacts());
