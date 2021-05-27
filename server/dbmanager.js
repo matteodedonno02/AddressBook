@@ -1,5 +1,9 @@
 const fs = require("fs");
 
+const saveDatabase = (db) => {
+    fs.writeFileSync("./db.json", JSON.stringify(db));
+}
+
 module.exports = {
     getContacts: () => {
         return JSON.parse(fs.readFileSync("./db.json").toString());
@@ -9,7 +13,7 @@ module.exports = {
         const temp = {id: db[db.length - 1].id + 1, name: name, surname: surname, phoneNumber: phoneNumber};
         if(db.filter(t => t.phoneNumber == temp.phoneNumber || (t.name == temp.name && t.surname) == temp.surname).length == 0){
             db.push(temp);
-            module.exports.saveDatabase(db);
+            saveDatabase(db);
         }
     },
     removeContact: (id) => {
@@ -19,9 +23,14 @@ module.exports = {
             if(contact.id > id)
                 contact.id --;
         });
-        module.exports.saveDatabase(db);
+        saveDatabase(db);
     },
-    saveDatabase: (db) => {
-        fs.writeFileSync("./db.json", JSON.stringify(db));
-    }
+
+    findContacts: (searchField) => {
+        var db = module.exports.getContacts();
+        db = db.filter(contact => contact.name.toLowerCase().includes(searchField.toLowerCase()) 
+            || contact.surname.toLowerCase().includes(searchField.toLowerCase()) 
+            || contact.phoneNumber.toLowerCase().includes(searchField.toLowerCase()));
+        return db;
+    } 
 };

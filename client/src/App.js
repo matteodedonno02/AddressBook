@@ -8,11 +8,15 @@ export default function App(){
 
     useEffect(() => {
         fetch("http://localhost:3030/contacts").then(data => data.json()).then(data => setContacts(data));
-    }, []);
+    }, [])
+
+    const searchContactsResult = (data) => {
+        setContacts(data);
+    }
 
     return (
         <div>
-            <CustomNavbar/> 
+            <CustomNavbar searchContactsResult={searchContactsResult}/> 
             <CustomTable contacts={contacts}/>
         </div>
     );

@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const db = require("./dbmanager.js");
+require("dotenv").config();
 
 const app = express();
 
@@ -22,6 +23,10 @@ app.delete("/remove/:id", (request, response) => {
     response.send(db.getContacts());
 });
 
-app.listen(3030, () => {
+app.get("/search", (request, response) => {
+    response.send(db.findContacts(request.query.searchField));
+});
+
+app.listen(process.env.PORT, () => {
     console.log("Server started!");
 });
