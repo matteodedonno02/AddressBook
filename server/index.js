@@ -8,6 +8,7 @@ const app = express();
 
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/contacts", (request, response) => {
     response.send(db.getContacts());
@@ -17,6 +18,11 @@ app.post("/add", (request, response) => {
     db.addContact(request.query.name, request.query.surname, request.query.phoneNumber);
     response.send(db.getContacts());
 });
+
+app.post("/edit", (request, response) => {
+    db.editContact(request.body.id, request.body.name, request.body.surname, request.body.phoneNumber);
+    response.send(db.getContacts());
+})
 
 app.delete("/remove/:id", (request, response) => {
     db.removeContact(request.params.id);

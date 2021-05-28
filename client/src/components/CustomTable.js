@@ -26,7 +26,7 @@ export default function CustomTable(props) {
     }
 
     const editContact = (contact) => {
-        setEditModal(<CustomModal contact={contact} destroyModal={destroyModal}/>);
+        setEditModal(<CustomModal contact={contact} destroyModal={destroyModal} setContacts={setContacts}/>);
     }
 
     

@@ -25,6 +25,13 @@ module.exports = {
         });
         saveDatabase(db);
     },
+    editContact: (id, name, surname, phoneNumber) => {
+        var db = module.exports.getContacts();
+        db[id].name = name;
+        db[id].surname = surname;
+        db[id].phoneNumber = phoneNumber;
+        saveDatabase(db);
+    },
 
     findContacts: (searchField) => {
         var db = module.exports.getContacts();
