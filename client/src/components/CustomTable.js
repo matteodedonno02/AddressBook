@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import customIcon from "../img/trash.png";
 import editIcon from "../img/edit.png";
-import CustomModal from "./CustomModal";
+import EditModal from "./EditModal";
 
 export default function CustomTable(props) {
     const [contacts, setContacts] = useState([]);
@@ -26,17 +26,32 @@ export default function CustomTable(props) {
     }
 
     const editContact = (contact) => {
-        setEditModal(<CustomModal contact={contact} destroyModal={destroyModal} setContacts={setContacts}/>);
+        setEditModal(<EditModal contact={contact} destroyModal={destroyModal} setContacts={setContacts}/>);
     }
 
+    const compareContactByName = (a, b) => {
+        if(a.name < b.name) {
+            return -1;
+        }
+        if(a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
     
+    const sortByName = () => {
+        var temp = contacts;
+        temp = temp.sort(compareContactByName);
+        console.log(temp);
+        setContacts(temp);
+    }
 
     return (
         <div>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th onClick={sortByName}>Name</th>
                         <th>Surname</th>
                         <th>Phone Number</th>
                         <th>Edit</th>
@@ -54,7 +69,7 @@ export default function CustomTable(props) {
                                     editContact(contact);
                                 }} /></td>
                                 <td className="td-icon"><img src={customIcon} alt="Delete icon" className="trash-icon" onClick={() => {
-                                    removeContact(key);
+                                    removeContact(contact.id);
                                 }} /></td>
                             </tr>
                         );

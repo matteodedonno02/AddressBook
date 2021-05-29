@@ -16,7 +16,7 @@ export default function App(){
 
     return (
         <div>
-            <CustomNavbar searchContactsResult={searchContactsResult}/> 
+            <CustomNavbar searchContactsResult={searchContactsResult} setContacts={setContacts}/> 
             <CustomTable contacts={contacts}/>
         </div>
     );

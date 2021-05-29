@@ -15,7 +15,7 @@ app.get("/contacts", (request, response) => {
 })
 
 app.post("/add", (request, response) => {
-    db.addContact(request.query.name, request.query.surname, request.query.phoneNumber);
+    db.addContact(request.body.name, request.body.surname, request.body.phoneNumber);
     response.send(db.getContacts());
 });
 

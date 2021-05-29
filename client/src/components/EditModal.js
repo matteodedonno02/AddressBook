@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
-export default function CustomModal(props) {
+export default function EditModal(props) {
     const [visible, setVisible] = useState(true);
 
     const {id} = props.contact;
